@@ -35,7 +35,7 @@
 
 > <samp>Attaque qui occationne la perte de donnée (Informations personnelles, Authentifiants). Elle est réalisé le plus souvent pour l'usurpation d'identité ou l'escroquerie.</samp>
 
-**3. Déni de service**
+**3. Déni de service**(_DDOS_)
 
 > <samp>Attaque qui pour but le ralentissement des sites attaqués voir les rendre indisponibles.</samp>
 
@@ -74,3 +74,18 @@
 **4. SRI (_Subresource Integrity_)**
 
 > <samp>Vérifie l'intégrité des ressources (ex: venant d'un CDN), empêche l'injection ou la modification du contenu.</samp>
+
+### HTTPS | TLS | HSTS
+
+**1. HTTPS (_Hyper Text Protocole Secure_)**
+
+> <samp>HTTPS est une extension sécurisée du protocole HTTP, le "S" signifie d'ailleurs _Secured_(sécurisé), il garantit la confidentialité et l'intégrité des données envoyées par l'utilisateur et reçues par le serveur.
+> Le "S" s'obtient grâce un certificat SSL/TLS acquis auprès d'une Autorité de Certification.</samp>
+
+**2. TLS (_Transport Layer Security_)**
+
+> <samp>TLS est un protocole de sécurité qui facilite la confidentialité et la sécurité des données, il permet de chiffrer les données lors des échanges entre les application web et les serveurs. </samp>
+
+**3. HSTS (_HTTP Strict Transport Security_)**
+
+> <samp>HSTS est une politique de sécurité Web conçu pour protéger les sites web HTTPS contre les attaques, il indique aux navigateurs Web de n'utiliser que les connexions HTTPS et bloque l'utilisation du protocole HTTP.</samp>
