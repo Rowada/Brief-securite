@@ -166,3 +166,17 @@ Exemple de rôle :
 - Admin
 - Modérateur
 - Utilisateur
+
+### RGPD (_Règlement Général sur la Protection des Données_)
+
+> Le RGPD est une loi européenne qui encadre le traitememt des données personnonelles sur le territoire de l'Union européenne.
+
+### Audit
+
+> Un audit est une analyse complète d'un site web.
+> Cette analyse couvre plusieurs aspects tel que le référencement(SEO) et l'expérience utilisateur.
+> La réalisation d'un audit peut contribuer à corriger les éventuels problèmes et à améliorer le site.
+
+### Bug Bounty
+
+> le bug bounty fait réfèrence à une récompense attribuée pour la recherche et le signalement de faille de sécurité dans un site web. De nombreuses entreprises offrent ce genre de prime car cette méthode est plus souvent moins coûteuse qu'un audit.
