@@ -1,4 +1,4 @@
-# Brief, Sécurisation d'une application :
+# Brief : Sécurisation d'une application
 
 ## Introduction
 
@@ -54,6 +54,10 @@
 **7. SQLI (_Injection SQL_)**
 
 > Cette attaque consiste à modifier les requêtes SQL lors des appels à la base de données, le plus souvent par le biais des formulaires. L'attaquant peut ainsi avoir accès à la base de données, modifier son contenu et par conséquent nuire à la sécurité du système.
+
+**8. Clickjacking**
+
+> le clickjacking est une attaque qui incite un utilisateur à cliquer sur un élément d'un site web qui au préalable a été modifié. Les utilisateurs touchés par cette attaque peuvent être amené à télécharger des virus ou à être dirigé vers des sites malveillants. Dans certain cas cette attaque peut même entrainer un vol de données sensibles.
 
 ## Partie Front de l'application
 
@@ -114,25 +118,51 @@ _"Ne jamais faire confiance aux entrées de l'utilisateur"_
 
 **3. Token**
 
-> Un token peut être vu comme une genre de signature numérique, il généralement encodée et utilisé pour authentifier et autoriser un utilisateur à accèder à des ressources.
-> Un token est générer sous la forme d'un OTP (_One-Time Password_), ce qui veux dire qu'il ne peut être utilisé une seule fois.
-> L'authentification avec un token permet aux utilisateurs de vérifier leur identité et en contre partie ils reçoivent un token unique qui leur donne accès à certaines ressources suivant leurs autorisations cela pendant un lapse de temps défini.
+> Un token peut être vu comme un genre de signature numérique, il est généralement encodé et utilisé pour authentifier et autoriser un utilisateur à accèder à des ressources.
+> Un token est généré sous la forme d'un OTP (_One-Time Password_), ce qui veux dire qu'il ne peut être utilisé qu'une seule fois.
+> L'authentification avec un token permet aux utilisateurs de vérifier leur identité. Ils reçoivent en contre partie un token unique qui leur donne accès à certaines ressources suivant leurs autorisations et cela pendant un lapse de temps défini.
 
 > **JSON Web Token (_JWT_)** est utilisé pour fournir en toute sécurité des informations sous la forme d'un objet JSON. Les token JWT sont souvent utilisés pour sécuriser les API (EX: API RESTful), gérer l'authenfication et les autorisations des utilisateurs.
 
 ### Les API (_Application programming Interface_)
 
-Les API permettent à deux applications de commumiquer entre elles et d'échanger des données par exemple dans le cas d'une application météo l'utilisateur va rentrer un code postal et l'API va lui retourner par exemple la température ou le temps à venir.
-Lors de ces échanges plusieurs failles de sécurités peuvent survenir mais avec l'utilisation des protocoles cités plus haut (HTTPS, Token d'authentification ect..), les API pourront être sécurisées.
+Les API permettent à deux applications de communiquer entre elles et d'échanger des données. Par exemple, dans le cas d'une application météo l'utilisateur va rentrer un code postal et l'API va lui retourner la température ou le temps à venir.
+Lors de ces échanges plusieurs failles de sécurité peuvent survenir mais avec l'utilisation des protocoles cités plus haut (HTTPS, Token d'authentification ect..), les API pourront être sécurisées.
 
 Pour empêcher d'éventuelles attaques DDOS il est recommandé de mettre en place des quotas pour limiter le nombre de requêtes autorisées par les utilisateurs.
 
 **Les API Stateless**
 
 > Une API Stateless est une API qui ne stocke pas de données sur les utilisateurs.
-> Chaque requêtes devra contenir toutes les informations nécessaires pour que le serveur puisse exécuter la requête et y répondre.
-> Le protoque stateless traite chaque action comme si elle se produisait pour le première fois.
+> Chaque requête devra contenir toutes les informations nécessaires pour que le serveur puisse l'exécuter et y répondre.
+> Le protoque stateless traite chaque action comme si elle se produit pour la première fois.
 
 **Les API Stateful**
 
-> À inverse les API stateful converse les informations des sessions précèdentes et les stockes sur un serveur. Par conséquence chaque nouvelle requêtes seront traiter comme les précèdentes.
+> À inverse les API stateful conserve les informations des sessions précèdentes et les stockes sur un serveur. Par conséquence chaque nouvelle requête est traitée comme la précèdente.
+
+## Journalisation
+
+> La journalisation consiste à tenir un journal contenant des messages fournissant des informations sur les éventuels incidents de sécurité. Elle permet d'analyser le comportement de l'application web et du réseau.
+> Il est recommandé que l'analyse du journal se fasse de manière automatique pour permettre une détection plus rapide en cas d'incident.
+
+## Authenfication vs Autorisation
+
+**1. L'authentification**
+
+> L'authentification consiste à vérifier l'identité des utilisateurs. Si le système détermine que vous êtes la personne appropriée, il vous donne les autorisations qui vous ont été attibuées.
+> En général, le système d'authentification est constitué d'un nom d'utilisateur et d'un mot de passe.
+
+**2. L'autorisation**
+
+> L'autorisation est utilisée pour déterminer les droits accordées à un utilisateur.
+> L'autorisation intervient après l'authentification, une fois que l'identité de l'utilisateur a été vérifiée.
+> Pour mieux gérer les droits d'accès dans une application web, mettre en place un RBAC (_Contrôle d'accès basé sur les rôles_) peut être la solution.
+> Ce système permet de mieux gérer les permissions des utilisateurs en leurs assignant un rôle, chaque rôle à un niveau d'autorisation différent ce qui empêche les utilisateurs d'effectuer des actions lorqu'ils n'ont pas les permissions pour le faire.
+
+Exemple de rôle :
+
+- Root
+- Admin
+- Modérateur
+- Utilisateur
