@@ -21,13 +21,13 @@
 
 ## Introduction
 
-This documentation has been realized in order to present a security strategy for a web application.
+This documentation has been realized in order to present a security strategy for a web application. You will find my choices in terms of security and a presentation of the main security protocols of a web application.
 
 ## Stratégies générales
 
 **1. Défense en profondeur**
 
-> La défense en profondeur est une stratègie de sécurité qui consiste à utiliser de multiples mesures de sécurité pour progéter l'intégrité du système.
+> La défense en profondeur est une stratègie de sécurité qui consiste à utiliser de multiples mesures de sécurité pour protéger l'intégrité du système.
 
 **2. Moindre privilège**
 
@@ -82,6 +82,8 @@ This documentation has been realized in order to present a security strategy for
 
 > Le CORS est une méthode qui permet le partage de ressource avec d'autre origin en contournant le SOP. Un accord des deux parties doit avoir lieu pour valider le partage.
 
+_Dans le cadre du projet nous utiliserons le CORS pour le partage de ressources avec les partenaires._
+
 **3. CSP (_Content Security Policy_)**
 
 > Protection mis en place contre les attaques XSS, elle permet d'écrire une liste appellée liste blanche où seront regroupées les ressources que l'on veut partager et avec qui les partager.
@@ -89,6 +91,8 @@ This documentation has been realized in order to present a security strategy for
 **4. SRI (_Subresource Integrity_)**
 
 > Vérifie l'intégrité des ressources (ex: venant d'un CDN), empêche l'injection ou la modification du contenu.
+
+_Dans le cadre du projet nous nous servirons du SRI pour contrôler l'intégrité des ressources externes en cas d'utilisation de librairie._
 
 ### HTTPS / TLS / HSTS
 
@@ -128,6 +132,8 @@ Il est recommandé de ne pas stocker des données sensibles dans les cookies.
 > Une session web est le temps passé par un utilisateur à naviguer sur un site web, du moment où il s'authentifie jusqu'au moment où il quitte le site.
 > Une session web peut stocker des informations sur les utilisateurs lors de leurs navigations. Il peut s'agir par exemple des pages que l'utilisateur à consultées, les données saisies dans un formulaire ou même un panier d'articles.
 > Le plus souvent une session a une limite de temps qui varie selon les sites, il est d'ailleurs recommandé de limiter cette durée sur les sessions pouvant contenir des données sensibles.
+
+_Dans le cadre du projet, nous recommandons de limiter la durée des sessions après une période d'inactivité, 15 minutes nous semble être la durée appropriée._
 
 **3. Token**
 
@@ -173,12 +179,17 @@ Pour empêcher d'éventuelles attaques DDOS il est recommandé de mettre en plac
 > Pour mieux gérer les droits d'accès dans une application web, mettre en place un RBAC (_Contrôle d'accès basé sur les rôles_) peut être la solution.
 > Ce système permet de mieux gérer les permissions des utilisateurs en leurs assignant un rôle, chaque rôle à un niveau d'autorisation différent ce qui empêche les utilisateurs d'effectuer des actions lorqu'ils n'ont pas les permissions pour le faire.
 
-Exemple de rôle :
+_Dans le cadre du projet, divers rôles ont déjà été définis._
 
-- Root
-- Admin
-- Modérateur
-- Utilisateur
+- Jeune :
+  - accès à une interface dédiée
+  - possibiliter de demander un rendez-vous
+- Utilisateur :
+  - proposition d'ajout/modification de contenus rédactionnels
+- Modérateur :
+  - validation des ajouts/modifications de contenus rédactionnels
+- Administrateur :
+  - accès complet (panel admin)
 
 ### RGPD (_Règlement Général sur la Protection des Données_)
 
@@ -204,6 +215,8 @@ Exemple de rôle :
 **2. Salage**
 
 > Une opération de salage consiste à rajouter une donnée choisie ou aléatoire après un hachage. Après cette opération, il est conseillé de procéder à un autre hachage pour rendre le tout indéchiffrable.
+
+_Dans le cadre du projet, nous vous conseillons d'utiliser la fonction de hachage SHA-256 ainsi qu'un sel aléatoire pour sécuriser les mots de passe des modérateurs et des administrateurs._
 
 **Politique de sécurisation des mots de passe :**
 
