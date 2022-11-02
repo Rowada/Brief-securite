@@ -1,14 +1,27 @@
-# Brief : Sécurisation d'une application
+# Brief : Stratégie de Sécurisation d'une Application
+
+## Tables des matières
+
+- [Introduction](#introduction)
+- [Stratégies générales](#stratégies-générales)
+- [Les principales menaces](#les-principales-menaces)
+- [Présentation des recommendations :](#présentation-des-recommendations-)
+  - [HTTPS / TLS / HSTS](#https--tls--hsts)
+  - [Sanitisation](#sanitisation)
+  - [Cookie / Session / Token](#cookie--session--token)
+  - [Les API (_Application programming Interface_)](#les-api-application-programming-interface)
+- [Journalisation](#journalisation)
+- [Authenfication vs Autorisation](#authenfication-vs-autorisation)
+  - [RGPD (_Règlement Général sur la Protection des Données_)](#rgpd-règlement-général-sur-la-protection-des-données)
+  - [Audit](#audit)
+  - [Bug Bounty](#bug-bounty)
+  - [Hachage / Salage / Sécurisation Mot de passe](#hachage--salage--sécurisation-mot-de-passe)
+  - [Stratégie de sauvegarde](#stratégie-de-sauvegarde)
+  - [Ressources](#ressources)
 
 ## Introduction
 
-## Sommaire
-
-- Stratégies générales de sécurisation
-- Sécurité partie front de l'application
-- Sécurité partie back de l'application
-- Sécurité d'API
-- Stratégie de sauvegarde
+This documentation has been realized in order to present a security strategy for a web application.
 
 ## Stratégies générales
 
@@ -59,9 +72,7 @@
 
 > le clickjacking est une attaque qui incite un utilisateur à cliquer sur un élément d'un site web qui au préalable a été modifié. Les utilisateurs touchés par cette attaque peuvent être amené à télécharger des virus ou à être dirigé vers des sites malveillants. Dans certain cas cette attaque peut même entrainer un vol de données sensibles.
 
-## Partie Front de l'application
-
-### Présentation des recommendations :
+## Présentation des recommendations :
 
 **1. SOP (_Same Origin Policy_)**
 
@@ -98,7 +109,8 @@
 
 _"Ne jamais faire confiance aux entrées de l'utilisateur"_
 
-> la sanitisation consiste à supprimer tout caractère dangereux des entrées utilisateurs et vérifie si les données ont le format et le type attendu.
+> La sanitisation consiste à supprimer tout caractère dangereux des entrées utilisateurs et vérifie si les données ont le format et le type attendu.
+> Il est recommandé pour une sécurité un maximal des entrées utilisateurs, d'effectuer la sanitisation à la fois côté client et côté serveur.
 > Ce traitement des formulaires prévient d'éventuel attaque de type SQL ou XSS.
 
 ### Cookie / Session / Token
@@ -108,7 +120,8 @@ _"Ne jamais faire confiance aux entrées de l'utilisateur"_
 > Les cookies sont des petits fichiers stockés par un serveur dans l'appareil d'un utilisateur et associés à un domaine web.
 > Les cookies ont plusieurs utilisations, ils peuvent permettre de mémoriser les identifiants, les préférences d'un utilisateur.
 > Il existe un type de cookie appellé _Cookie tier_ qui est déposé par des sites différents de ceux visités par les utilisateurs, via le navigateur. Il va collecter des données sur les utilisateurs, ces données vont être analysées et utilisées à des fins publicitaires.
-> Il est recommandé de ne pas stocker des données sensibles dans les cookies.
+
+Il est recommandé de ne pas stocker des données sensibles dans les cookies.
 
 **2. Session**
 
@@ -180,3 +193,48 @@ Exemple de rôle :
 ### Bug Bounty
 
 > le bug bounty fait réfèrence à une récompense attribuée pour la recherche et le signalement de faille de sécurité dans un site web. De nombreuses entreprises offrent ce genre de prime car cette méthode est plus souvent moins coûteuse qu'un audit.
+
+### Hachage / Salage / Sécurisation Mot de passe
+
+**1. Hachage**
+
+> Grâce à une fonction de hachage, il est possible de chiffrer les données à l'aide d'un algorithme mathématique.
+> Mais le hachage n'est pas à 100% sécurisé car si le chiffrement a été réalisé avec un algorithme public et que la clé a été trouvée, on peut effectuer l'opération inverse et ainsi récupérer les données d'origine. Pour sécuriser davantage un hachage il est préférable de le combiner avec le salage.
+
+**2. Salage**
+
+> Une opération de salage consiste à rajouter une donnée choisie ou aléatoire après un hachage. Après cette opération, il est conseillé de procéder à un autre hachage pour rendre le tout indéchiffrable.
+
+**Politique de sécurisation des mots de passe :**
+
+- Ne jamais stocké les mots de passe en clair
+- Mettre en place un délai d'expiration des mots de passe pour les administrateurs (Validité de 6 mois)
+- Imposer une longueur minimale des mots de passe
+- Possibiliter d'utiliser l'authentification multifacteur pour les utilisateurs
+- Ne pas utiliser le SMS comme moyen de réception d'un facteur d'authentification
+- Limiter dans le temps le nombre de tentatives d'authentification
+- Limiter le durée de validation d'une session authentifiée
+- Générer aléatoirement le mot de passe au moment de l'inscription d'un utilisateur
+- Réaliser l'authentification au travers d'un canal sécurisé pour les modérateurs et les administrateurs
+
+### Stratégie de sauvegarde
+
+Afin d'éviter la perte de données en cas d'attaque ou en raison d'une erreur interne, il est préférable d'effectuer régulierèment des sauvegardes.
+
+Nous vous conseillons la mise en place d'une sauvegarde régulière (Une chaque soir dans l'idéal) et l'utilisation de la stratégie 3-2-1 conseillée par l'ANSSI (Agence National de la Sécurité des Systèmes d'Information).
+
+La première étape de cette méthode consiste à effectuer 3 copies de sauvegarde stockées sur différents périphéries. Cela minimise la perte de données dans le cas d'une défaillance informatique.
+
+La deuxième étape consiste à copier les données vers deux supports différents (exemple un disque dur externe).
+
+La troisième et dernière étape consiste à répliquer les données et à les stocker sur un serveur distant, vous pouvez ainsi toujours en avoir une copie même en cas de vol ou de catastrophe naturelle.
+
+Cette stratégie permettra de s'assurer qu'il y a toujours une sauvegarde viable quelle que soit la situation et que les données des utilisateurs de l'application sont en sécurité.
+
+## Ressources
+
+- [Sécurisation d'API](https://www.redhat.com/fr/topics/security/api-security)
+- [RGPD](https://www.cnil.fr/fr/rgpd-de-quoi-parle-t-on)
+- [Recommandations ANSSI](https://www.ssi.gouv.fr/uploads/2013/05/anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf)
+- [Journalisation](https://www.cnil.fr/fr/la-cnil-publie-une-recommandation-relative-aux-mesures-de-journalisation)
+- [Méthode de sauvegarde 3-2-1](https://www.savbox.fr/sauvegarde-3-2-1/)
